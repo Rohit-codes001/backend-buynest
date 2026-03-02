@@ -2,7 +2,7 @@ import usermodel from '../models/usermodel.js'
 import validator from 'validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
+import productModel from '../models/productmodel.js'
 
 function genratetoken(id) {
   return jwt.sign({ id }, process.env.JWT_SECRET)
@@ -23,8 +23,8 @@ const loginUser = async (req, res) => {
     return res.json({ success: false, message: "Wrong password" })
   }
 
-   const token = genratetoken(isUser._id)
-   res.json({success : true , token})
+  const token = genratetoken(isUser._id)
+  res.json({ success: true, token })
 
 
 
@@ -69,18 +69,29 @@ const registerUser = async (req, res) => {
 
 const adminLogin = async (req, res) => {
 
-try{
-       let {email , password} = req.body
-        if(email !== process.env.admin_email && password !== process.env.admin_password){
-          res.json({success:false , message:"Something went wrong"})
-        }
-        let token = jwt.sign(email+password , process.env.JWT_SECRET)
-        res.json({success:true , token})
-}catch(err){
-  res.json({success:false , message:err.message})
+  try {
+    let { email, password } = req.body
+    if (email !== process.env.admin_email && password !== process.env.admin_password) {
+      res.json({ success: false, message: "Something went wrong" })
+    }
+    let token = jwt.sign(email + password, process.env.JWT_SECRET)
+    res.json({ success: true, token })
+  } catch (err) {
+    res.json({ success: false, message: err.message })
+
+  }
 
 }
 
+
+let getallproducts = async (req , res)=>{
+  try{
+      let allproducts = await productModel.find({})
+      res.json({success:true , allproducts})
+  }catch(err){
+    res.json({success:false , message:err.message})
+
+  }
 }
 
-export { loginUser, registerUser, adminLogin }
+export { loginUser, registerUser, adminLogin , getallproducts }

@@ -7,6 +7,8 @@ import connectCloudinary from './config/cloudinary.js'
 import connectdb from './config/connectdb.js'
 import userRoute from './routes/userRoute.js'
 import productRout from './routes/productRout.js'
+import CartRout from './routes/CartRout.js'
+import orderRout from './routes/orderRoute.js'
 const port = process.env.PORT || 4000
 
 
@@ -16,6 +18,8 @@ app.use(cors())
 app.use(express.json())
 app.use('/api/user' , userRoute)
 app.use('/api/product' ,  productRout)
+app.use('/api/cart' , CartRout)
+app.use('/api/order',orderRout)
 dotenv.config()
 connectdb()
 connectCloudinary()

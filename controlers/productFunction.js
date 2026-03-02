@@ -60,7 +60,7 @@ async function allproduct(req, res) {
         res.json({ success: true, allproducts })
     } catch (err) {
         res.json({ success: false, message: err.message })
-        console.log()
+        console.log(err.message)
     }
 
 }
