@@ -5,12 +5,14 @@ import verifyAdmin from '../middleware/verifyAdmin_middleware.js'
 
 let orderRout = express.Router()
 
-import {placeorder , placeorderRazorpay ,placeorderStripe , updateStatus ,userOrders , list} from '../controlers/orderControler.js'
+import {placeorder , placeorderRazorpay ,placeorderStripe , updateStatus ,userOrders , list ,verifyrazorpayPayment} from '../controlers/orderControler.js'
+import verifyUser from '../middleware/userVerify.js'
 
 orderRout.post('/placeorder' , userVerify , placeorder)
 orderRout.post('/placeorderRazorpay', userVerify ,placeorderRazorpay)
 orderRout.post('/placeorderStripe', userVerify ,placeorderStripe)
 orderRout.post('/userOrders', userVerify ,userOrders)
+orderRout.post('/verifyrazorpayPayment' ,verifyUser, verifyrazorpayPayment)
 
 // admin order routes
 

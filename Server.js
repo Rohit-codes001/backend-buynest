@@ -23,7 +23,6 @@ app.use('/api/order',orderRout)
 dotenv.config()
 connectdb()
 connectCloudinary()
-
 app.get('/', (req, res) => {
     res.send("api working")
 })
